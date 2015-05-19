@@ -46,13 +46,18 @@ PG_FUNCTION_INFO_V1(decibel_in);
 Datum
 decibel_in(PG_FUNCTION_ARGS)
 {
-  PG_RETURN_FLOAT8();
+  char val_str = PG_GETARG_CSTRING(0);
+# Convert val_str to a float8 inval
+  PG_RETURN_DECIBEL( pow( 10, inval / 10.0) );
 }
 
 PG_FUNCTION_INFO_V1(decibel_out);
 Datum
 decibel_out(PG_FUNCTION_ARGS)
 {
-  PG_RETURN_CSTRING();
+  decibel_t val_pascal = PG_GETARG_DECIBEL(0);
+  decibel_t val_decibel = 10 * log10(val_pascal);
+# convert val_decibel to cstring outval
+  PG_RETURN_CSTRING(outval);
 }
 
