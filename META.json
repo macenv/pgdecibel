@@ -1,0 +1,29 @@
+{
+   "name": "pgDecibel",
+   "abstract": "decibel data type",
+   "version": "0.0.1",
+   "maintainer": "David Bitner <bitner@dbspatial.com>",
+   "license": "postgresql",
+   "meta-spec": {
+      "version": "0.0.1",
+      "url": "http://pgxn.org/meta/spec.txt"
+   },
+   "prereqs": {
+      "runtime": {
+         "requires": {
+             "PostgreSQL": ">= 9.3.0"
+         }
+      }
+   },
+   "provides": {
+      "pgDecibel": {
+         "abstract": "decibel type",
+         "file": "decimal.sql",
+         "version": "0.0.1"
+      }
+   },
+   "tags": [
+      "type",
+      "decibel"
+   ]
+}

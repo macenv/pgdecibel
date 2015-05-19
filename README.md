@@ -8,7 +8,7 @@ PostgreSQL type to store and work with data in double precision pascals while re
 postgres=# CREATE EXTENSION decibel;
 CREATE EXTENSION
 postgres=# SELECT 65.23::decibel;
- decimal32
+ decibel 
 ───────────
  65.23
 (1 row)
