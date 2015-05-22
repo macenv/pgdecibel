@@ -69,4 +69,3 @@ decibel_out(PG_FUNCTION_ARGS)
   sprintf(outval, "%.*lG", 15, val );
   PG_RETURN_CSTRING(outval);
 }
-

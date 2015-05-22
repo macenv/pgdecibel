@@ -76,12 +76,17 @@ CREATE FUNCTION decibel_smaller(decibel,decibel) RETURNS decibel AS 'float8small
 CREATE FUNCTION decibel_larger(decibel,decibel)  RETURNS decibel AS 'float8larger'  LANGUAGE INTERNAL IMMUTABLE STRICT;
 
 -- Functiond used for avg aggregate
-CREATE FUNCTION decibel_accum(decibel[],decibel) RETURNS decibel[] AS 'float8_accum' LANGUAGE INTERNAL IMMUTABLE STRICT;
-CREATE FUNCTION decibel_avg(decibel[]) RETURNS decibel AS 'float8_avg' LANGUAGE INTERNAL IMMUTABLE STRICT;
+CREATE FUNCTION decibel_accum(float8[],decibel) RETURNS float8[] AS $$
+  SELECT ARRAY[$1[1]+pascals($2),$1[2]+1];
+$$ LANGUAGE SQL IMMUTABLE STRICT;
+
+CREATE FUNCTION decibel_avg(float8[]) RETURNS decibel AS $$
+  SELECT pascaldecibel($1[1] / $1[2])::decibel
+$$ LANGUAGE SQL IMMUTABLE STRICT;
 
 -- Aggregate Functions
 CREATE AGGREGATE sum(decibel) ( sfunc = decibel_sum, stype = decibel );
-CREATE AGGREGATE avg(decibel) ( sfunc = decibel_accum, stype = decibel[], finalfunc=decibel_avg, initcond='{0,0,0}' );
+CREATE AGGREGATE avg(decibel) ( sfunc = decibel_accum, stype = float8[], finalfunc=decibel_avg, initcond='{0,0,0}' );
 CREATE AGGREGATE max(decibel) ( sfunc = decibel_larger,  stype=decibel );
 CREATE AGGREGATE min(decibel) ( sfunc = decibel_smaller, stype=decibel );
 --*/
