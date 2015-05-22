@@ -17,6 +17,7 @@ typedef float8 decibel_t;
 
 Datum decibelpascal(PG_FUNCTION_ARGS);
 Datum pascaldecibel(PG_FUNCTION_ARGS);
+Datum pascals(PG_FUNCTION_ARGS);
 Datum decibel_in(PG_FUNCTION_ARGS);
 Datum decibel_out(PG_FUNCTION_ARGS);
 Datum decibel_sum(PG_FUNCTION_ARGS);
@@ -42,6 +43,13 @@ pascaldecibel(PG_FUNCTION_ARGS)
     PG_RETURN_FLOAT8( 10 * log10(arg) );
 }
 
+PG_FUNCTION_INFO_V1(pascals);
+Datum
+pascals(PG_FUNCTION_ARGS)
+{
+    float8   arg = PG_GETARG_DECIBEL(0);
+    PG_RETURN_FLOAT8( arg );
+}
 
 PG_FUNCTION_INFO_V1(decibel_in);
 Datum
@@ -60,42 +68,5 @@ decibel_out(PG_FUNCTION_ARGS)
   char* outval = (char*)malloc(255);
   sprintf(outval, "%.*lG", 15, val );
   PG_RETURN_CSTRING(outval);
-}
-
-
-PG_FUNCTION_INFO_V1(decibel_sum);
-Datum
-decibel_sum(PG_FUNCTION_ARGS)
-{
-    float8 a = PG_GETARG_DECIBEL(0);
-    float8 b = PG_GETARG_DECIBEL(1);
-    PG_RETURN_DECIBEL( a + b );
-}
-
-PG_FUNCTION_INFO_V1(decibel_div);
-Datum
-decibel_div(PG_FUNCTION_ARGS)
-{
-    float8 a = PG_GETARG_DECIBEL(0);
-    float8 b = PG_GETARG_DECIBEL(1);
-    PG_RETURN_DECIBEL( a / b );
-}
-
-PG_FUNCTION_INFO_V1(decibel_mul);
-Datum
-decibel_mul(PG_FUNCTION_ARGS)
-{
-    float8 a = PG_GETARG_DECIBEL(0);
-    float8 b = PG_GETARG_DECIBEL(1);
-    PG_RETURN_DECIBEL( a * b );
-}
-
-PG_FUNCTION_INFO_V1(decibel_mi);
-Datum
-decibel_mi(PG_FUNCTION_ARGS)
-{
-    float8 a = PG_GETARG_DECIBEL(0);
-    float8 b = PG_GETARG_DECIBEL(1);
-    PG_RETURN_DECIBEL( a + b );
 }
 
