@@ -21,7 +21,7 @@ As long as pg_config is on the path (utility installed with PostgreSQL that shou
 <pre>
 make clean; make; sudo make install;
 </pre>
-From there you need to actually add it to the macnoms database by going into the database and running:
+From there you need to actually add it to the database by going into the database and running:
 <pre>
 CREATE EXTENSION decibel;
 </pre>
